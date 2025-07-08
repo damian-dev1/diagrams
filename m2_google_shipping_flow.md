@@ -3,27 +3,27 @@
 ```mermaid
 flowchart TD
     %% Core Flow
-    A[🛍️ Customer searches product on Google Shopping] --> B[🌐 Google Merchant Center]
+    A[Customer searches product on Google Shopping] --> B[Google Merchant Center]
     B --> C[GMC checks shipping settings]
 
-    C -->|Uses flat/advanced/carrier| D{⚙️ Shipping Method?}
+    C -->|Uses flat/advanced/carrier| D{Shipping Method?}
     
     D -->|Advanced Rate| E[GMC uses predefined region & rate mapping]
     D -->|Carrier Calculated| F[GMC expects real-time rates from merchant]
 
-    F --> G[🧩 Merchant implements custom shipping integration]
+    F --> G[Merchant implements custom shipping integration]
 
-    G --> H[📦 Magento 2 Module - GoogleFreight]
-    H --> I[💬 Helper: FreightApi.php]
-    I --> J[🔗 REST API → Azure Cosmos DB]
-    J --> K[🎯 Returns deliveryPossible + deliveryRate]
+    G --> H[Magento 2 Module - GoogleFreight]
+    H --> I[Helper: FreightApi.php]
+    I --> J[REST API → Azure Cosmos DB]
+    J --> K[Returns deliveryPossible + deliveryRate]
 
-    K --> L[🧾 Magento returns rate result]
-    L --> M[📄 OfferShippingDetails injected into page JSON-LD]
+    K --> L[Magento returns rate result]
+    L --> M[OfferShippingDetails injected into page JSON-LD]
 
-    M --> N[🕷️ Googlebot scrapes structured data]
+    M --> N[Googlebot scrapes structured data]
 
-    E --> O[🖥️ Google Shopping displays product + shipping rate]
+    E --> O[Google Shopping displays product + shipping rate]
     N --> O
 
     %% Subsystems
@@ -35,11 +35,11 @@ flowchart TD
     end
 
     subgraph GMC_Shipping_Sync_Script_Python
-        P[⏱️ Periodic Sync Script]
-        P --> Q[📊 Query rates from Magento or Cosmos DB]
-        Q --> R[🧪 Format as Google Shipping Settings Schema]
-        R --> S[🔐 Push to GMC API via OAuth2]
-        S --> T[🔄 GMC updates shipping rate rules]
+        P[Periodic Sync Script]
+        P --> Q[Query rates from Magento or Cosmos DB]
+        Q --> R[Format as Google Shipping Settings Schema]
+        R --> S[Push to GMC API via OAuth2]
+        S --> T[GMC updates shipping rate rules]
         T --> C
     end
 
